@@ -7,11 +7,13 @@ R was created in New Zealand in 1991 and made public in 1993.
 
 # R Console Input and Evaluation
 Assignment operator and evaluation
+
     > x <- 5
     > print(x)
     [1] 5
     > x
     [1] 5
+
 Simply typing the object name also works. 
 The [1] indicated that `x` is a vector and 5 the first element.
 
@@ -49,7 +51,29 @@ Attributes of an object can be found using function attributes()
 The `c()` function ca be used to create vectors of objects
     > x <- c(0.5, 0.6)
     > x <- c("a", "b", "c")
+
 To initiate a vector use the `vector()` function
     > x <- vector("numeric", length = 10)
     > x
     [1] 0 0 0 0 0 0 0 0 0 0
+
+When mixing objects, like numeric and character in a vector, numeric is converted to character.
+To explicit coercion use the `as.*` function
+    > x <- 0:6
+    > class(x)
+    [1] "integer"
+    > as.logical(x)
+    [1] FALSE TRUE TRUE TRUE TRUE TRUE TRUE
+When coercion is not possible, NA is displayed.
+
+List are a special type of vector that can contain elements of different classes. Very useful in R.
+    > x <- list(1, "a", TRUE)
+	> x
+	[[1]]
+	[1] 1
+	
+	[[2]]
+	[1] "a"
+	
+	[[3]]
+	[1] TRUE

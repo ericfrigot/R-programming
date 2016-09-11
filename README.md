@@ -241,9 +241,9 @@ But for file, this is not very useful and equivalent to `data.csv("foo.txt")`.
 
 # Subsetting
 ## Basics
-- \[ always returns an object of the same class as the original, can be used to select more that on element
-- \[\[ is used to extract elements of a list or a data frame. 
-- \$ is used to extract elements of a list or data frame by name; semantics are similar to hat of \[\[
+- [ always returns an object of the same class as the original, can be used to select more that on element
+- [[ is used to extract elements of a list or a data frame. 
+- $ is used to extract elements of a list or data frame by name; semantics are similar to hat of [[
 
     > x <- c("a", "b", "c", "c", "d", "a")
     > x[1]
@@ -302,6 +302,28 @@ By default it return a single vector, to turn off the behavior use `drop = FALSE
     > x[1, 2, drop = FALSE]
         [,1]
     [1,] 3
+    
+## Data Frame
+Use the `subset` function.
+
+    > df <- data.frame(matrix(rnorm(20), nrow=10))
+    > df
+        X1          X2
+    1  -0.45359039 -0.48127468
+    2  -0.73025361  1.80813210
+    3   0.33582147  0.05181295
+    4  -2.78439005 -0.36683257
+    5   0.97386398  0.08734192
+    6  -0.91068543 -0.71892697
+    7   0.98013151  0.61573900
+    8   0.17393832 -0.36135419
+    9  -0.01983313  2.12184619
+    10 -0.49455030  0.58118793
+    > subset(df, X1 > 0.2)
+        X1         X2
+    3 0.3358215 0.05181295
+    5 0.9738640 0.08734192
+    7 0.9801315 0.61573900
 
 ## Partial Matching
 Works with [[ and $.

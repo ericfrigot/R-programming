@@ -88,59 +88,59 @@ List are a special type of vector that can contain elements of different classes
 ## Matrices
 Matrices are vectors with a dimension attribute. They are filled column first.
 
-	> m <- matrix(1:6, nrow = 2, ncol = 3)
-	> m
-		[,1] [,2], [,3]
-	[1,] 1     3    5
-	[2,] 2     4    6
+    > m <- matrix(1:6, nrow = 2, ncol = 3)
+    > m
+        [,1] [,2], [,3]
+    [1,] 1     3    5
+    [2,] 2     4    6
 
 Matrices can be created from a vectors by modifying the dimension attribute
 
-	> m <- 1:10
-	> m
-	[1] 1 2 3 4 5 6 7 8 9 10
-	> dim(m) <- c(2, 5)
-	> m
-		[1,] [2,] [3,] [4,] [5,]
-	[1,] 1    3    5    7    9
-	[2,] 2    4    6    8    10
+    > m <- 1:10
+    > m
+    [1] 1 2 3 4 5 6 7 8 9 10
+    > dim(m) <- c(2, 5)
+    > m
+        [1,] [2,] [3,] [4,] [5,]
+    [1,] 1    3    5    7    9
+    [2,] 2    4    6    8    10
 
 Matrices can also by created by column-binding or row-binding using `cbind()` and `rbind()`.
 
-	> x <- 1:3
-	> y <- 10:12
-	> cbind(x, y)
-		 x  y
-	[1,] 1  10
-	[2,] 2  11
-	[3,] 3  12
-	> rbind(x, y)
-		[,1] [,2] [,3]
-	x    1    2    3
-	y    10   11   12
+    > x <- 1:3
+    > y <- 10:12
+    > cbind(x, y)
+         x  y
+    [1,] 1  10
+    [2,] 2  11
+    [3,] 3  12
+    > rbind(x, y)
+        [,1] [,2] [,3]
+    x    1    2    3
+    y    10   11   12
 
 ## Factors
 Factors are used to represent categorical data, like an integer vector where each integer has a label.
 
-	> x <- factor(c("yes", "yes", "no", "yes", "no"))
-	> x
-	[1] yes yes no yes no
-	Levels : no yes
-	> table(x)
-	x
-	no yes
-	2  3
-	> unclass(x)
-	[1] 2 2 1 2 1
-	attr(, "levels")
-	[1] "no" "yes"
+    > x <- factor(c("yes", "yes", "no", "yes", "no"))
+    > x
+    [1] yes yes no yes no
+    Levels : no yes
+    > table(x)
+    x
+    no yes
+    2  3
+    > unclass(x)
+    [1] 2 2 1 2 1
+    attr(, "levels")
+    [1] "no" "yes"
 
 To order the levels
 
-	> x <- factor(c("yes", "yes", "no", "yes", "no"), levels = c("yes", "no"))
-	> x
-	[1] yes yes no yes no
-	Levels : yes no
+    > x <- factor(c("yes", "yes", "no", "yes", "no"), levels = c("yes", "no"))
+    > x
+    [1] yes yes no yes no
+    Levels : yes no
 
 ## Missing Values
 They are denoted by NA or NaN (Not a Number)
@@ -153,39 +153,39 @@ They are used to store tabular data
 They are represented as a list where every element as the same length. Data frames also have a special attribute
 called `row.names`. They are usually created by calling `read.table()` or `read.csv()`.
 
-	> x <- data.frame(foo = 1:4, bar = c(T, T, F, F))
-	> x
-	  foo  bar
-	1   1  TRUE
-	2   2  TRUE
-	3   3  FALSE
-	4   4  FALSE
-	> nrow(x)
-	[1] 4
-	> ncol(x)
-	[1] 2
+    > x <- data.frame(foo = 1:4, bar = c(T, T, F, F))
+    > x
+      foo  bar
+    1   1  TRUE
+    2   2  TRUE
+    3   3  FALSE
+    4   4  FALSE
+    > nrow(x)
+    [1] 4
+    > ncol(x)
+    [1] 2
 
 ## Names attribute
 Very useful for writing readable code and self-describing objects.
 
-	> x <- 1:3
-	> names(x)
-	NULL
-	> names(x) <- c("foo", "bar", "norf")
-	> x
-	foo bar norf
-	  1   2    3
-	> names(x)
-	[1] "foo" "bar" "norf"
+    > x <- 1:3
+    > names(x)
+    NULL
+    > names(x) <- c("foo", "bar", "norf")
+    > x
+    foo bar norf
+      1   2    3
+    > names(x)
+    [1] "foo" "bar" "norf"
 
 For matrices.
 
-	> m <- matrix(1:4, nrow = 2, ncol = 2)
-	> dimnames(m) <- list(c("a", "b"), c("c", "d"))
-	> m
-	  c d
-	a 1 3
-	b 2 4
+    > m <- matrix(1:4, nrow = 2, ncol = 2)
+    > dimnames(m) <- list(c("a", "b"), c("c", "d"))
+    > m
+      c d
+    a 1 3
+    b 2 4
 
 # Reading Tabular Data
 The are a few principal functions reading data into R.
@@ -218,9 +218,9 @@ The following tips are useful for reading large datasets :
 
 Use the `colClasses` argument to make loading MUCH faster.
 
-	> initial <- read.table("datatable.txt", nrows = 100)
-	> classes <- sapply(initial, class)
-	> tabAll <- read.table("datatable.txt", colClasses = classes)
+    > initial <- read.table("datatable.txt", nrows = 100)
+    > classes <- sapply(initial, class)
+    > tabAll <- read.table("datatable.txt", colClasses = classes)
 
 Here you first look at the 100 first rows, then apply the `class` function to this sub-dataset,
 then load the full file with `colClasses` already known.
@@ -233,10 +233,10 @@ then load the full file with `colClasses` already known.
 
 Connection to file can be open and close
 
-	> con <- file("foo.txt", "r")
-	> read.csv(con)
-	> close(con)
-	
+    > con <- file("foo.txt", "r")
+    > read.csv(con)
+    > close(con)
+    
 But for file, this is not very useful and equivalent to `data.csv("foo.txt")`.
 
 # Subsetting
@@ -245,107 +245,107 @@ But for file, this is not very useful and equivalent to `data.csv("foo.txt")`.
 - [[ is used to extract elements of a list or a data frame. 
 - $ is used to extract elements of a list or data frame by name; semantics are similar to hat of [[
 
-	> x <- c("a", "b", "c", "c", "d", "a")
-	> x[1]
-	[1] "a"
-	> x[1:4]
-	[1] "a" "b" "c" "c"
-	> x[x > "a"]
-	[1] "b" "c" "c" "d"
-	> u <- x > "a"
-	> u
-	[1] FALSE TRUE TRUE TRUE TRUE FALSE
+    > x <- c("a", "b", "c", "c", "d", "a")
+    > x[1]
+    [1] "a"
+    > x[1:4]
+    [1] "a" "b" "c" "c"
+    > x[x > "a"]
+    [1] "b" "c" "c" "d"
+    > u <- x > "a"
+    > u
+    [1] FALSE TRUE TRUE TRUE TRUE FALSE
 
 ## Lists
 
-	> x <- list(foo = 1:4, bar = 0.6)
-	> x[1]
-	$foo
-	[1] 1 2 3 4
-	> x[[1]]
-	[1] 1 2 3 4
-	> x$bar
-	[1] 0.6
-	> x[["bar"]]
-	[1] 0.6
+    > x <- list(foo = 1:4, bar = 0.6)
+    > x[1]
+    $foo
+    [1] 1 2 3 4
+    > x[[1]]
+    [1] 1 2 3 4
+    > x$bar
+    [1] 0.6
+    > x[["bar"]]
+    [1] 0.6
 
 To subset more that one element use the `c` function
 
-	> x <- list(foo = 1:4, bar = 0.6, baz = "hello")
-	> x[c(1,3)]
-	$foo
-	[1] 1 2 3 4
-	
-	$baz
-	[1] "hello"
+    > x <- list(foo = 1:4, bar = 0.6, baz = "hello")
+    > x[c(1,3)]
+    $foo
+    [1] 1 2 3 4
+    
+    $baz
+    [1] "hello"
 
 To subset nested elements of a list
 
-	> x <- list(a = list(10, 12, 14), b = c(3.14, 2.81))
-	> x[[c(1,3)]]
-	[1] 14
-	> x[[1]][[3]]
-	[1] 14
+    > x <- list(a = list(10, 12, 14), b = c(3.14, 2.81))
+    > x[[c(1,3)]]
+    [1] 14
+    > x[[1]][[3]]
+    [1] 14
 
 ## Matrix
 
 Matrices can be subsetted in the usal way with (i,j) type indices.
 
-	> x <- matrix(1:6, 2, 3)
-	> x[1, 2]
-	[1] 3
-	> x[1, ]
-	[1] 1 3 5
+    > x <- matrix(1:6, 2, 3)
+    > x[1, 2]
+    [1] 3
+    > x[1, ]
+    [1] 1 3 5
 
 By default it return a single vector, to turn off the behavior use `drop = FALSE`
 
-	> x[1, 2, drop = FALSE]
-		[,1]
-	[1,] 3
+    > x[1, 2, drop = FALSE]
+        [,1]
+    [1,] 3
 
 ## Partial Matching
 Works with [[ and $.
 
-	> x <- list(aardvark = 1:5)
-	> x$a
-	[1] 1 2 3 4 5
-	> x[["a"]]
-	NULL
-	> x[["a"], exact = FALSE]]
-	[1] 1 2 3 4 5
+    > x <- list(aardvark = 1:5)
+    > x$a
+    [1] 1 2 3 4 5
+    > x[["a"]]
+    NULL
+    > x[["a"], exact = FALSE]]
+    [1] 1 2 3 4 5
 
 ** IMO, never use this ! That's confusing **
 
 ## Removing NA Values
 
-	> x <- c(1, 2, NA, 4, NA, 5)
-	> bad <- is.na(x)
-	> x[!bad]
-	[1] 1 2 4 5
+    > x <- c(1, 2, NA, 4, NA, 5)
+    > bad <- is.na(x)
+    > x[!bad]
+    [1] 1 2 4 5
 
 Here bad is a logical vector with the same length as x and can be used to retrieve only the valid elements.
 What if there are multiple things and you want to take the subset with no missing  values?
 
-	> x <- c(1, 2, NA, 4, NA, 5)
-	> y <- c("a", "b", NA, "d", NA, "f")
-	> good <- complete.cases(x, y)
-	> good
-	[1] TRUE TRUE FALSE TRUE FALSE TRUE
-	> x[good]
-	[1] 1 2 3 4 5
-	> y[good]
-	[1] "a" "b" "d" "f"
+    > x <- c(1, 2, NA, 4, NA, 5)
+    > y <- c("a", "b", NA, "d", NA, "f")
+    > good <- complete.cases(x, y)
+    > good
+    [1] TRUE TRUE FALSE TRUE FALSE TRUE
+    > x[good]
+    [1] 1 2 3 4 5
+    > y[good]
+    [1] "a" "b" "d" "f"
 
 # Vectorized Operations
 
-	> x <- 1:4, y <- 6:9
-	> x + y
-	[1] 7 9 11 13
-	> x >= 2
-	[1] FALSE FALSE TRUE TRUE
-	
-	> x <- matrix(1:4, 2, 2), y <- matrix(rep(10, 4), 2, 2)
-	> x * y
-		[,1] [,2]
-	[,1]  10   20
-	[,2]  20   40
+    > x <- 1:4, y <- 6:9
+    > x + y
+    [1] 7 9 11 13
+    > x >= 2
+    [1] FALSE FALSE TRUE TRUE
+    
+    > x <- matrix(1:4, 2, 2), y <- matrix(rep(10, 4), 2, 2)
+    > x * y
+        [,1] [,2]
+    [,1]  10   20
+    [,2]  20   40

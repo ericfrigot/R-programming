@@ -243,7 +243,7 @@ But for file, this is not very useful and equivalent to `data.csv("foo.txt")`.
 ## Basics
 - [ always returns an object of the same class as the original, can be used to select more that on element
 - [[ is used to extract elements of a list or a data frame. 
-- $ is used to extract elements of a list or data frame by name; semantics are similar to hat of [[
+- $ is used to extract elements of a list or data frame by name; semantics are similar to hat of \[\[
 
     > x <- c("a", "b", "c", "c", "d", "a")
     > x[1]

@@ -187,3 +187,165 @@ For matrices.
 	a 1 3
 	b 2 4
 
+# Reading Tabular Data
+The are a few principal functions reading data into R.
+- `read.table`, `read.csv`, for reading tabular data
+- `readLines`, for reading lines of a text file
+- `source`, for reading R code files (inverse of dump)
+- `dget`, for reading in R code files (inverse of dput)
+- `load`, for reading in saved workspaces
+- `unserialize`, for reading single R objects in binary form
+
+Analogous functions for writing data to files : `write.table`, `writeLines`, `dump`, `dput`, `save`, `serialize`.
+
+The `read.table` function is one of the most commonly used functions for reading data. It has a few important arguments :
+- `file`, the name of the file or a connection
+- `header`, logical indicating if the file has a header line
+- `sep`, a string indicating how the columns are separeted
+- `colClasses`, a character vector indicating the class of each column in the dataset
+- `nrows`, the number of rows in the dataset
+- `comment.char`, a character string indicating the comment character
+- `skip`, the umbers of lines to skip from the beginning
+- `stringsAsFactors`, should character variable be coded as Factors
+
+`read.csv` is identical to `read.table` except that the default separator is a comma.
+
+# Reading Large Tables
+The following tips are useful for reading large datasets :
+- Read help page for `read.table`, which contains many hints
+- Make a rough calculation of the memory reaquired to store your dataset
+- Set `comment.char = ""` if there are no commented lines in your file
+
+Use the `colClasses` argument to make loading MUCH faster.
+
+	> initial <- read.table("datatable.txt", nrows = 100)
+	> classes <- sapply(initial, class)
+	> tabAll <- read.table("datatable.txt", colClasses = classes)
+
+Here you first look at the 100 first rows, then apply the `class` function to this sub-dataset,
+then load the full file with `colClasses` already known.
+
+# Connections : Interfaces to the Outside World
+- `file`, opens a connection to a file
+- `gzfile`, opens a connection to a gzip file
+- `bzfile`, opens a connection to a bzip2 file
+- `url`, opens a connection to a webpage
+
+Connection to file can be open and close
+
+	> con <- file("foo.txt", "r")
+	> read.csv(con)
+	> close(con)
+	
+But for file, this is not very useful and equivalent to `data.csv("foo.txt")`.
+
+# Subsetting
+## Basics
+- [ always returns an object of the same class as the original, can be used to select more that on element
+- [[ is used to extract elements of a list or a data frame. 
+- $ is used to extract elements of a list or data frame by name; semantics are similar to hat of [[
+
+	> x <- c("a", "b", "c", "c", "d", "a")
+	> x[1]
+	[1] "a"
+	> x[1:4]
+	[1] "a" "b" "c" "c"
+	> x[x > "a"]
+	[1] "b" "c" "c" "d"
+	> u <- x > "a"
+	> u
+	[1] FALSE TRUE TRUE TRUE TRUE FALSE
+
+## Lists
+
+	> x <- list(foo = 1:4, bar = 0.6)
+	> x[1]
+	$foo
+	[1] 1 2 3 4
+	> x[[1]]
+	[1] 1 2 3 4
+	> x$bar
+	[1] 0.6
+	> x[["bar"]]
+	[1] 0.6
+
+To subset more that one element use the `c` function
+
+	> x <- list(foo = 1:4, bar = 0.6, baz = "hello")
+	> x[c(1,3)]
+	$foo
+	[1] 1 2 3 4
+	
+	$baz
+	[1] "hello"
+
+To subset nested elements of a list
+
+	> x <- list(a = list(10, 12, 14), b = c(3.14, 2.81))
+	> x[[c(1,3)]]
+	[1] 14
+	> x[[1]][[3]]
+	[1] 14
+
+## Matrix
+
+Matrices can be subsetted in the usal way with (i,j) type indices.
+
+	> x <- matrix(1:6, 2, 3)
+	> x[1, 2]
+	[1] 3
+	> x[1, ]
+	[1] 1 3 5
+
+By default it return a single vector, to turn off the behavior use `drop = FALSE`
+
+	> x[1, 2, drop = FALSE]
+		[,1]
+	[1,] 3
+
+## Partial Matching
+Works with [[ and $.
+
+	> x <- list(aardvark = 1:5)
+	> x$a
+	[1] 1 2 3 4 5
+	> x[["a"]]
+	NULL
+	> x[["a"], exact = FALSE]]
+	[1] 1 2 3 4 5
+
+** IMO, never use this ! That's confusing **
+
+## Removing NA Values
+
+	> x <- c(1, 2, NA, 4, NA, 5)
+	> bad <- is.na(x)
+	> x[!bad]
+	[1] 1 2 4 5
+
+Here bad is a logical vector with the same length as x and can be used to retrieve only the valid elements.
+What if there are multiple things and you want to take the subset with no missing  values?
+
+	> x <- c(1, 2, NA, 4, NA, 5)
+	> y <- c("a", "b", NA, "d", NA, "f")
+	> good <- complete.cases(x, y)
+	> good
+	[1] TRUE TRUE FALSE TRUE FALSE TRUE
+	> x[good]
+	[1] 1 2 3 4 5
+	> y[good]
+	[1] "a" "b" "d" "f"
+
+# Vectorized Operations
+
+	> x <- 1:4, y <- 6:9
+	> x + y
+	[1] 7 9 11 13
+	> x >= 2
+	[1] FALSE FALSE TRUE TRUE
+	
+	> x <- matrix(1:4, 2, 2), y <- matrix(rep(10, 4), 2, 2)
+	> x * y
+		[,1] [,2]
+	[,1]  10   20
+	[,2]  20   40

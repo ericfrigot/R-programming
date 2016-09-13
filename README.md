@@ -336,7 +336,7 @@ Works with [[ and $.
     > x[["a"], exact = FALSE]]
     [1] 1 2 3 4 5
 
-** IMO, never use this ! That's confusing **
+__IMO, never use this ! That's confusing__
 
 ## Removing NA Values
 
@@ -357,7 +357,7 @@ What if there are multiple things and you want to take the subset with no missin
     [1] 1 2 3 4 5
     > y[good]
     [1] "a" "b" "d" "f"
-
+	
 # Vectorized Operations
 
     > x <- 1:4, y <- 6:9
@@ -371,3 +371,68 @@ What if there are multiple things and you want to take the subset with no missin
         [,1] [,2]
     [,1]  10   20
     [,2]  20   40
+
+# Control Structures
+## If-else
+
+	if (x > 3) {
+		y <- 10
+	} else {
+		y <- 0
+	}
+
+## For
+
+	for (i in 1:10) {
+		print(i)
+	}
+	
+	x <- c("a", "b", "c", "d")
+	for (i in seq_along(x)) {
+		print(x[i])
+	}
+
+## While
+
+	count <-0
+	while (count < 10) {
+		print(count)
+		count <- count + 1
+	}
+
+## Repeat, Next, Break
+Not very useful in statistics.
+
+	x0 <- 1
+	to1 <- 1e-8
+	
+	repeat {
+		x1 <- computeEstimate()
+		if (abs(x1 - x0) < to1) {
+			break
+		} ekse {
+			x0 <- x1
+		}
+	}
+
+`next` is used to skip an iteration of a loop
+
+	for (i in 1:100) {
+		if (i <= 20) {
+			\# skip the first 20 iterations
+			next
+		}
+		\# do something else
+	}
+
+## R Function
+Functions are created using the `function()` directive and are stored as R objects.
+Functioncs can be passed as arguments to other functions. R functions arguments can be matched
+positionally or by name (but it's better to respect function signature order).
+
+	> mydata <- rnorm(100)
+	> sd(mydata)
+	> sd(x = mydata)
+	> sd(x = mydata, na.rm = FALSE)
+	> sd(na.rm = FALSE, x = mydata)
+	

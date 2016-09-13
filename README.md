@@ -358,7 +358,7 @@ What if there are multiple things and you want to take the subset with no missin
     > y[good]
     [1] "a" "b" "d" "f"
 	
-# Vectorized Operations
+## Vectorized Operations
 
     > x <- 1:4, y <- 6:9
     > x + y
@@ -419,20 +419,36 @@ Not very useful in statistics.
 
 	for (i in 1:100) {
 		if (i <= 20) {
-			\# skip the first 20 iterations
+			## skip the first 20 iterations
 			next
 		}
-		\# do something else
+		## do something else
 	}
 
 ## R Function
 Functions are created using the `function()` directive and are stored as R objects.
 Functioncs can be passed as arguments to other functions. R functions arguments can be matched
-positionally or by name (but it's better to respect function signature order).
+positionally or by name (but it's better to respect function signature order). Some arguments
+can be optional.
 
 	> mydata <- rnorm(100)
 	> sd(mydata)
 	> sd(x = mydata)
 	> sd(x = mydata, na.rm = FALSE)
 	> sd(na.rm = FALSE, x = mydata)
-	
+
+	strangeAdd <- function(a, b, c = 0) {
+		a + b + c
+	}
+	> strangeAdd(1,2)
+	[1] 3
+	> strangeAdd(1,2,3)
+	[1] 6
+
+The "..." argument can be used to extend a function
+
+	myplot <- function(x, y, type = "1", ...) {
+		plot(x, y, type = type, ...)
+	}
+
+

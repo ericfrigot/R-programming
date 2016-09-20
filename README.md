@@ -451,4 +451,33 @@ The "..." argument can be used to extend a function
 		plot(x, y, type = type, ...)
 	}
 
+# Loop Functions
+Avoid to use for, while... in the command line for exemple
 
+## lapply
+lapply take three arguments : a list x, a fonction FUN and other arguments via its... .
+
+	> x <- list(a = 1:5, b = rnorm(10))
+	> lapply(x, mean)
+	$a
+	[1] 3
+	
+	$b
+	[1] 0.0296924
+
+Using ... allow to add argument to the function used. runif function create
+N random numbers, it allows also a min or a max value.
+
+	> x <- 1:2
+	> lapply(x, runif, min = 0, max = 10)
+	[[1]]
+	[1] 3.202142
+	
+	[[2]]
+	[1] 6.848960 7.195282
+
+## sapply
+sapply will try to simplify the result of lapply if possible
+- If the result is a list where every element is length 1, then a vector is returned
+- If the result is a list where every element is a vector of the same length (>1), a matrix is returned.
+- If it can't figure things out, a list is returned

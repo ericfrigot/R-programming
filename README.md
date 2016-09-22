@@ -480,4 +480,58 @@ N random numbers, it allows also a min or a max value.
 sapply will try to simplify the result of lapply if possible
 - If the result is a list where every element is length 1, then a vector is returned
 - If the result is a list where every element is a vector of the same length (>1), a matrix is returned.
-- If it can't figure things out, a list is returned
+- If it can''t figure things out, a list is returned
+
+## apply
+Mostly used to apply a function to the rows or columns of a matrix. Not realy faster than a loop but in one line of code (useful in  the command line).
+
+    > x <- matrix(rnorm(200), 20, 10)
+    > apply(x, 2, mean)
+    // apply the mean on the columns -> 10 results
+    > apply(x, 1, sum)
+    // apply the sum on the rows -> 20 results
+    
+You can already use rowSum, rowMin... which are faster on large matrix.
+
+## mapply
+It is a multivariate apply of sorts which applies a function in parallel over a set of arguments.
+
+    list(rep(1,4), rep(2,3), rep(3,2), rep(4,1))
+    // This will create a list of vectors containing 1 repeat 4 times, 2 repeat 3 times...
+    // We can also create this list with :
+    > mapply(rep, 1:4, 4:1)
+    
+## tapply
+It is use to apply a function over subsets of a vector.
+
+## split
+It takes a vector of other objects and splits it into groups determined by a factor or list of factors.
+
+    > library(datasets)
+    > head(airquality)
+      Ozone Solar.R Wind Temp Month Day
+    1    41     190  7.4   67     5   1
+    2    36     118  8.0   72     5   2
+    3    12     149 12.6   74     5   3
+    4    18     313 11.5   62     5   4
+    5    NA      NA 14.3   56     5   5
+    6    28      NA 14.9   66     5   6
+    // Split this dataframe by month
+    > s <- split(airquality, airquality$Month)
+    // Apply the colMeans function of Columns Ozone, Solar.R and Wind on our splitted dataframe by month
+    > lapply(s, function(x) colMeans(x[, c("Ozone", "Solar.R", "Wind")]))
+    $`5`
+       Ozone  Solar.R     Wind 
+          NA       NA 11.62258 
+
+    $`6`
+        Ozone   Solar.R      Wind 
+           NA 190.16667  10.26667 
+
+Using sapply we can simplify the result. We can also add na.rm = TRUE as second argument of colMeans to avoid NA.
+
+    > sapply(s, function(x) colMeans(x[, c("Ozone", "Solar.R", "Wind")]))
+                   5         6          7        8        9
+    Ozone         NA        NA         NA       NA       NA
+    Solar.R       NA 190.16667 216.483871       NA 167.4333
+    Wind    11.62258  10.26667   8.941935 8.793548  10.1800

@@ -78,7 +78,7 @@ List are a special type of vector that can contain elements of different classes
     > x
     [[1]]
     [1] 1
-    
+ 
     [[2]]
     [1] "a"
     
@@ -244,7 +244,7 @@ But for file, this is not very useful and equivalent to `data.csv("foo.txt")`.
 - [ always returns an object of the same class as the original, can be used to select more that on element
 - [[ is used to extract elements of a list or a data frame. 
 - $ is used to extract elements of a list or data frame by name; semantics are similar to hat of [[
-
+    
     > x <- c("a", "b", "c", "c", "d", "a")
     > x[1]
     [1] "a"
@@ -255,7 +255,7 @@ But for file, this is not very useful and equivalent to `data.csv("foo.txt")`.
     > u <- x > "a"
     > u
     [1] FALSE TRUE TRUE TRUE TRUE FALSE
-
+    
 ## Lists
 
     > x <- list(foo = 1:4, bar = 0.6)

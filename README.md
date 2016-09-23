@@ -535,3 +535,26 @@ Using sapply we can simplify the result. We can also add na.rm = TRUE as second 
     Ozone         NA        NA         NA       NA       NA
     Solar.R       NA 190.16667 216.483871       NA 167.4333
     Wind    11.62258  10.26667   8.941935 8.793548  10.1800
+
+# Debugging Tools
+
+## traceback
+Prints out the function call stack after an error occurs.
+
+    > lm(y-x)
+    Error in stats::model.frame(formula = y - x, drop.unused.levels = TRUE) : 
+      object 'y' not found
+    > traceback()
+    4: stats::model.frame(formula = y - x, drop.unused.levels = TRUE)
+    3: eval(expr, envir, enclos)
+    2: eval(mf, parent.frame())
+    1: lm(y - x)
+
+## debug
+Flags a function for "debug" mode which allows you to step through execution of a function one line at a time
+
+## trace
+Allows you to insert debugging code into a function a specific places
+
+## recover
+Allows you to modify the error behavior so that you can brows the function call stack

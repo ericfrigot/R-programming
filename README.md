@@ -595,8 +595,8 @@ variable and a truncated version of those variables. Also try the following code
     > s <- split(airquality, airquality$Month)
     > str(s)
     
-## Simulation
-# Generated Random Numbers
+# Simulation
+## Generated Random Numbers
 Functions for probability distributions in R
 - rnorm : generate random Normal variates with a given mean and standard deviation
 - dnorm : evaluate the Normal probability density (with a given mean/SD) at a point (or vector fo points)

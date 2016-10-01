@@ -595,3 +595,49 @@ variable and a truncated version of those variables. Also try the following code
     > s <- split(airquality, airquality$Month)
     > str(s)
     
+## Simulation
+# Generated Random Numbers
+Functions for probability distributions in R
+- rnorm : generate random Normal variates with a given mean and standard deviation
+- dnorm : evaluate the Normal probability density (with a given mean/SD) at a point (or vector fo points)
+- pnorm : evaluate the cumulative distribution function for a Normal distribution
+- rpois : generate random Poisson variates with a given rate
+
+d stand for density, r for random number generation, p for cumulative distribution and q for quantile function.
+
+	> rnorm(10, 10, 5)
+	 [1]  3.829957  1.990528 11.886098  5.898225 11.179007 10.405336  9.510652 16.373442  8.523557 12.446238
+	
+Here 10 numbers have been generated with mean egual 5 and a standard deviation egual to 5.
+
+For simulation the `set.seed` function ensures reproducibility. Each time you call this function (for
+exemple with argument 1) it will reset the random sequence.
+	
+	> set.seed(1)
+	> rnorm(5)
+	[1] -0.6264538  0.1836433 -0.8356286  1.5952808  0.3295078
+	> rnorm(5)
+	[1] -0.8204684  0.4874291  0.7383247  0.5757814 -0.3053884
+	> set.seed(1)
+	> rnorm(5)
+	[1] -0.6264538  0.1836433 -0.8356286  1.5952808  0.3295078
+	
+It also allows people to reproduce what you have done. 
+
+TODO Here missing comprehension of Poisson distribution...
+
+## Simulating a Linear Model
+Suppose we want to simulate the following linear model
+- y = Beta_0 + Beta_1 * x + epsi
+- where epsi ~= Normal(0,2^2). Assume x ~= Normal(0,1^2), Beta_0 = 0.5 and Beta_1 = 2
+
+	> set.seed(20)
+	> x <- rnorm(100)
+	> epsi <- rnorm(100,0,2)
+	> y <- 0.5 + 2 * x + epsi
+	> summary(y)
+	   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+	-6.4080 -1.5400  0.6789  0.6893  2.9300  6.5050 
+	> plot(x, y)
+	
+![alt text](https://github.com/ericfrigot/R-programming/raw/master/images/linear-mode1.png "Linear Model Plot")

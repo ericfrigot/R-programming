@@ -558,3 +558,40 @@ Allows you to insert debugging code into a function a specific places
 
 ## recover
 Allows you to modify the error behavior so that you can brows the function call stack
+
+## str
+Compactly display the internal structure of an R object. For a list with nested list of arbitrary object 
+it will display one line per nested list providing their object type and a truncated content of this 
+list.
+
+    x <- rnorm(100, 2, 4)
+    > summary(x)
+      Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+      -9.2340 -0.9033  1.6700  1.7720  4.1820 10.4300
+    > str(x)
+     num [1:100] -3.85 -1.59 2.88 9.98 1.71 ...
+
+    > library(datasets)
+    > head(airquality)
+      Ozone Solar.R Wind Temp Month Day
+    1    41     190  7.4   67     5   1
+    2    36     118  8.0   72     5   2
+    3    12     149 12.6   74     5   3
+    4    18     313 11.5   62     5   4
+    5    NA      NA 14.3   56     5   5
+    6    28      NA 14.9   66     5   6
+    > str(airquality)
+    'data.frame':    153 obs. of  6 variables:
+     $ Ozone  : int  41 36 12 18 NA 28 23 19 8 NA ...
+     $ Solar.R: int  190 118 149 313 NA NA 299 99 19 194 ...
+     $ Wind   : num  7.4 8 12.6 11.5 14.3 14.9 8.6 13.8 20.1 8.6 ...
+     $ Temp   : int  67 72 74 62 56 66 65 59 61 69 ...
+     $ Month  : int  5 5 5 5 5 5 5 5 5 5 ...
+     $ Day    : int  1 2 3 4 5 6 7 8 9 10 ...
+
+Here `str` function provide the number of observations, the number of variables, the type of each
+variable and a truncated version of those variables. Also try the following code :
+
+    > s <- split(airquality, airquality$Month)
+    > str(s)
+    

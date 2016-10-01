@@ -357,7 +357,7 @@ What if there are multiple things and you want to take the subset with no missin
     [1] 1 2 3 4 5
     > y[good]
     [1] "a" "b" "d" "f"
-	
+    
 ## Vectorized Operations
 
     > x <- 1:4, y <- 6:9
@@ -375,55 +375,55 @@ What if there are multiple things and you want to take the subset with no missin
 # Control Structures
 ## If-else
 
-	if (x > 3) {
-		y <- 10
-	} else {
-		y <- 0
-	}
+    if (x > 3) {
+        y <- 10
+    } else {
+        y <- 0
+    }
 
 ## For
 
-	for (i in 1:10) {
-		print(i)
-	}
-	
-	x <- c("a", "b", "c", "d")
-	for (i in seq_along(x)) {
-		print(x[i])
-	}
+    for (i in 1:10) {
+        print(i)
+    }
+    
+    x <- c("a", "b", "c", "d")
+    for (i in seq_along(x)) {
+        print(x[i])
+    }
 
 ## While
 
-	count <-0
-	while (count < 10) {
-		print(count)
-		count <- count + 1
-	}
+    count <-0
+    while (count < 10) {
+        print(count)
+        count <- count + 1
+    }
 
 ## Repeat, Next, Break
 Not very useful in statistics.
 
-	x0 <- 1
-	to1 <- 1e-8
-	
-	repeat {
-		x1 <- computeEstimate()
-		if (abs(x1 - x0) < to1) {
-			break
-		} ekse {
-			x0 <- x1
-		}
-	}
+    x0 <- 1
+    to1 <- 1e-8
+    
+    repeat {
+        x1 <- computeEstimate()
+        if (abs(x1 - x0) < to1) {
+            break
+        } ekse {
+            x0 <- x1
+        }
+    }
 
 `next` is used to skip an iteration of a loop
 
-	for (i in 1:100) {
-		if (i <= 20) {
-			## skip the first 20 iterations
-			next
-		}
-		## do something else
-	}
+    for (i in 1:100) {
+        if (i <= 20) {
+            ## skip the first 20 iterations
+            next
+        }
+        ## do something else
+    }
 
 ## R Function
 Functions are created using the `function()` directive and are stored as R objects.
@@ -431,25 +431,25 @@ Functioncs can be passed as arguments to other functions. R functions arguments 
 positionally or by name (but it's better to respect function signature order). Some arguments
 can be optional.
 
-	> mydata <- rnorm(100)
-	> sd(mydata)
-	> sd(x = mydata)
-	> sd(x = mydata, na.rm = FALSE)
-	> sd(na.rm = FALSE, x = mydata)
+    > mydata <- rnorm(100)
+    > sd(mydata)
+    > sd(x = mydata)
+    > sd(x = mydata, na.rm = FALSE)
+    > sd(na.rm = FALSE, x = mydata)
 
-	strangeAdd <- function(a, b, c = 0) {
-		a + b + c
-	}
-	> strangeAdd(1,2)
-	[1] 3
-	> strangeAdd(1,2,3)
-	[1] 6
+    strangeAdd <- function(a, b, c = 0) {
+        a + b + c
+    }
+    > strangeAdd(1,2)
+    [1] 3
+    > strangeAdd(1,2,3)
+    [1] 6
 
 The "..." argument can be used to extend a function
 
-	myplot <- function(x, y, type = "1", ...) {
-		plot(x, y, type = type, ...)
-	}
+    myplot <- function(x, y, type = "1", ...) {
+        plot(x, y, type = type, ...)
+    }
 
 # Loop Functions
 Avoid to use for, while... in the command line for exemple
@@ -457,24 +457,24 @@ Avoid to use for, while... in the command line for exemple
 ## lapply
 lapply take three arguments : a list x, a fonction FUN and other arguments via its... .
 
-	> x <- list(a = 1:5, b = rnorm(10))
-	> lapply(x, mean)
-	$a
-	[1] 3
-	
-	$b
-	[1] 0.0296924
+    > x <- list(a = 1:5, b = rnorm(10))
+    > lapply(x, mean)
+    $a
+    [1] 3
+    
+    $b
+    [1] 0.0296924
 
 Using ... allow to add argument to the function used. runif function create
 N random numbers, it allows also a min or a max value.
 
-	> x <- 1:2
-	> lapply(x, runif, min = 0, max = 10)
-	[[1]]
-	[1] 3.202142
-	
-	[[2]]
-	[1] 6.848960 7.195282
+    > x <- 1:2
+    > lapply(x, runif, min = 0, max = 10)
+    [[1]]
+    [1] 3.202142
+    
+    [[2]]
+    [1] 6.848960 7.195282
 
 ## sapply
 sapply will try to simplify the result of lapply if possible
@@ -605,23 +605,23 @@ Functions for probability distributions in R
 
 d stand for density, r for random number generation, p for cumulative distribution and q for quantile function.
 
-	> rnorm(10, 10, 5)
-	 [1]  3.829957  1.990528 11.886098  5.898225 11.179007 10.405336  9.510652 16.373442  8.523557 12.446238
-	
+    > rnorm(10, 10, 5)
+     [1]  3.829957  1.990528 11.886098  5.898225 11.179007 10.405336  9.510652 16.373442  8.523557 12.446238
+    
 Here 10 numbers have been generated with mean egual 5 and a standard deviation egual to 5.
 
 For simulation the `set.seed` function ensures reproducibility. Each time you call this function (for
 exemple with argument 1) it will reset the random sequence.
-	
-	> set.seed(1)
-	> rnorm(5)
-	[1] -0.6264538  0.1836433 -0.8356286  1.5952808  0.3295078
-	> rnorm(5)
-	[1] -0.8204684  0.4874291  0.7383247  0.5757814 -0.3053884
-	> set.seed(1)
-	> rnorm(5)
-	[1] -0.6264538  0.1836433 -0.8356286  1.5952808  0.3295078
-	
+    
+    > set.seed(1)
+    > rnorm(5)
+    [1] -0.6264538  0.1836433 -0.8356286  1.5952808  0.3295078
+    > rnorm(5)
+    [1] -0.8204684  0.4874291  0.7383247  0.5757814 -0.3053884
+    > set.seed(1)
+    > rnorm(5)
+    [1] -0.6264538  0.1836433 -0.8356286  1.5952808  0.3295078
+    
 It also allows people to reproduce what you have done. 
 
 TODO Here missing comprehension of Poisson distribution...
@@ -631,13 +631,49 @@ Suppose we want to simulate the following linear model
 - y = Beta_0 + Beta_1 * x + epsi
 - where epsi ~= Normal(0,2^2). Assume x ~= Normal(0,1^2), Beta_0 = 0.5 and Beta_1 = 2
 
-	> set.seed(20)
-	> x <- rnorm(100)
-	> epsi <- rnorm(100,0,2)
+    > set.seed(20)
+    > x <- rnorm(100)
+    > epsi <- rnorm(100,0,2)
+    > y <- 0.5 + 2 * x + epsi
+    > summary(y)
+       Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+    -6.4080 -1.5400  0.6789  0.6893  2.9300  6.5050 
+    > plot(x, y)
+    
+![alt text](https://github.com/ericfrigot/R-programming/raw/master/images/linear-mode1.png "Linear Model Plot")
+
+We can clearly this that the distribution is linear here.
+
+Now, what if x is binary ?
+
+	> set.seed(10)
+	> x <- rbinom(100, 1, 0.5)
+	> epsi <- rnorm(100, 0, 2)
 	> y <- 0.5 + 2 * x + epsi
 	> summary(y)
 	   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-	-6.4080 -1.5400  0.6789  0.6893  2.9300  6.5050 
-	> plot(x, y)
+	-3.4940 -0.1409  1.5770  1.4320  2.8400  6.9410 
+	> plot(x,y)
 	
-![alt text](https://github.com/ericfrigot/R-programming/raw/master/images/linear-mode1.png "Linear Model Plot")
+![alt text](https://github.com/ericfrigot/R-programming/raw/master/images/linear-mode2.png "Linear Model Plot")
+
+As x is binary, we have only two values for x while y is still continuous.
+
+TODO Here missing comprehension of Poisson model...
+
+## Random Sampling
+The `sample` function draws randomly from a specified set of (scalar) objects allowing you to
+sample from arbitrary distributions.
+
+	> set.seed(1)
+	> sample(1:10, 4)
+	[1] 3 4 5 7
+	> sample(1:10, 4)
+	[1] 3 9 8 5
+	> sample(letters, 5)
+	[1] "q" "b" "e" "x" "p"
+	> sample(1:10) ## permutation since there will be 10 objects
+	 [1]  4  7 10  6  9  2  8  3  1  5
+	> sample(1:10)
+	 [1]  2  3  4  1  9  5 10  8  6  7
+
